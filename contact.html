@@ -20,7 +20,7 @@
       <div class="crumbs"><a href="index.html">Home</a><span class="sep">/</span><span>Contact</span></div>
       <span class="eyebrow light">Get in touch</span>
       <h1>Let&rsquo;s start a conversation</h1>
-      <p>Tell us what you&rsquo;re looking for and we&rsquo;ll respond with options and answers.</p>
+      <p>Tell us about your project or the property you&rsquo;re looking for and we&rsquo;ll respond with options and answers.</p>
     </div>
   </section>
 
@@ -37,8 +37,9 @@
             <div class="field"><label for="email">Email (optional)</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com"></div>
             <div class="field"><label for="interest">I&rsquo;m interested in</label>
               <select id="interest" name="interest">
+                <option>House construction</option><option>Commercial or multi-unit building</option><option>Renovation or remodelling</option>
                 <option>Buying a property</option><option>Renting a property</option><option>Land</option>
-                <option>Investment opportunities</option><option>Home construction</option><option>Consultancy</option><option>Something else</option>
+                <option>Investment opportunities</option><option>Consultancy</option><option>Something else</option>
               </select></div>
             <div class="field full"><label for="property">Property of interest (optional)</label>
               <select id="property" name="property"><option value="">No specific property</option></select></div>
@@ -98,6 +99,16 @@
   S.properties.forEach(function(p){sel.insertAdjacentHTML('beforeend','<option value="'+p.id+'">'+p.title+' — '+p.area+'</option>')});
   var pre=new URLSearchParams(location.search).get('property');
   if(pre&&A.byId(pre)){sel.value=pre;$('#interest').value=A.byId(pre).purpose==='Rent'?'Renting a property':'Buying a property'}
+
+  var qs=new URLSearchParams(location.search),pj=qs.get('project'),topic=qs.get('topic');
+  if(pj){
+    var pr=(S.projects||[]).filter(function(x){return x.id===pj})[0];
+    if(pr){
+      $('#interest').value=pr.cat==='commercial'?'Commercial or multi-unit building':pr.cat==='renovation'?'Renovation or remodelling':'House construction';
+      $('#message').value='I would like to discuss a project similar to "'+pr.title+'".';
+    }
+  }
+  if(topic==='construction')$('#interest').value='House construction';
 
   $('#enquiryForm').addEventListener('submit',function(e){
     e.preventDefault();

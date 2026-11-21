@@ -14,7 +14,8 @@
     in4: '1600573472550-8090b5e0745e', kit1: '1484154218962-a197022b5858', kit2: '1556912172-45b7abe8b7e1',
     in5: '1522708323590-d24dbb6b0267', in6: '1600607688969-a5bfcd646154',
     apt1: '1545324418-cc1a3fa10c00', tower: '1486406146926-c627a92ad1ab', apt2: '1493809842364-78817add7ffb', apt3: '1460317442991-0ec209397118',
-    land1: '1500382017468-9049fed747ef', land2: '1448630360428-65456885c650', build1: '1503387762-592deb58ef4e', build2: '1541888946425-d81bb19240f5'
+    land1: '1500382017468-9049fed747ef', land2: '1448630360428-65456885c650', build1: '1503387762-592deb58ef4e', build2: '1541888946425-d81bb19240f5',
+    c1: '1504307651254-35680f356dfd', c2: '1565008447742-97f6f38c985c', c3: '1531834685032-c34bf0d84c77'
   };
 
   var P = [
@@ -123,7 +124,17 @@
     whatsapp: '',
     waDefault: 'Hello SEE Construction & Real Estate, I would like to make an enquiry about property in Abuja.',
     img: img,
-    hero: [H.villa, H.pool, H.modern],
+    hero: [H.build2, H.villa, H.build1],
+    projects: [
+      { id: 'modern-family-duplex', title: 'Modern Family Duplex', cat: 'residential', label: 'Residential', img: H.house3, desc: 'A contemporary duplex with open-plan living and a private courtyard.' },
+      { id: 'contemporary-villa', title: 'Contemporary Villa', cat: 'residential', label: 'Residential', img: H.villa, desc: 'A single-family villa with generous entertaining spaces and a landscaped garden.' },
+      { id: 'terrace-development', title: 'Terrace Home Development', cat: 'residential', label: 'Residential', img: H.house5, desc: 'A row of terrace homes planned for secure, estate-style living.' },
+      { id: 'apartment-block', title: 'Multi-Unit Apartment Block', cat: 'commercial', label: 'Commercial', img: H.apt1, desc: 'A multi-storey apartment building for rental or resale.' },
+      { id: 'mixed-use-building', title: 'Mixed-Use Commercial Building', cat: 'commercial', label: 'Commercial', img: H.tower, desc: 'Retail space below and offices above, positioned for business use.' },
+      { id: 'structure-in-progress', title: 'Structure in Progress', cat: 'residential', label: 'Residential', img: H.c1, desc: 'A building taking shape, from foundation and framing to roofing.' },
+      { id: 'villa-renovation', title: 'Villa Renovation', cat: 'renovation', label: 'Renovation', img: H.house8, desc: 'An existing home refreshed with new finishes and improved layout.' },
+      { id: 'interior-refit', title: 'Interior Refit', cat: 'renovation', label: 'Renovation', img: H.in1, desc: 'Living spaces reworked with modern fittings and lighting.' }
+    ],
     districts: ['Maitama', 'Asokoro', 'Guzape', 'Wuse II', 'Jabi', 'Katampe', 'Gwarinpa', 'Life Camp', 'Lokogoma', 'Lugbe', 'Apo', 'Central Business District'],
     types: ['House', 'Apartment', 'Land', 'Commercial'],
     properties: P

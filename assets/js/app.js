@@ -31,6 +31,7 @@
     users: '<circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M17 14c2.5 0 4.5 2 4.5 4.5"/>',
     sparkle: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/>',
     eye: '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/>',
+    ruler: '<path d="M3 16 16 3l5 5L8 21 3 16Z"/><path d="m7.5 11.5 2 2M10.5 8.5l2 2M13.5 5.5l2 2"/>',
     calendar: '<rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/>'
   };
   var HEART = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.2-9.4C1.7 7.8 3.6 4.8 6.8 4.8c2 0 3.8 1.2 5.2 3.2 1.4-2 3.2-3.2 5.2-3.2 3.2 0 5.1 3 4 6.3-1.7 4.8-9.2 9.4-9.2 9.4Z"/></svg>';
@@ -142,6 +143,13 @@
       '<a class="btn btn-navy btn-sm" href="' + href + '">View details ' + icon('arrow', 'arr') + '</a></div></div></article>';
   }
 
+  function projCard(p, i) {
+    return '<a class="proj reveal d' + ((i || 0) % 3 + 1) + '" href="contact.html?project=' + p.id + '" data-cat="' + p.cat + '" aria-label="Discuss a project like ' + p.title + '">' +
+      '<img src="' + S.img(p.img, 900) + '" alt="' + p.title + '" loading="lazy" onerror="seeImgErr(this)">' +
+      '<div class="proj-body"><span class="badge badge-gold">' + p.label + '</span><h3>' + p.title + '</h3><p>' + p.desc + '</p>' +
+      '<span class="proj-link">Discuss a similar project ' + icon('arrow') + '</span></div></a>';
+  }
+
   /* ---------- reveal on scroll ---------- */
   var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function (es) {
     es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
@@ -155,7 +163,7 @@
   function layout() {
     var page = document.body.getAttribute('data-page') || '';
     var links = [
-      ['index.html', 'Home', 'home'], ['properties.html', 'Properties', 'properties'],
+      ['index.html', 'Home', 'home'], ['projects.html', 'Projects', 'projects'], ['properties.html', 'Properties', 'properties'],
       ['services.html', 'Our Services', 'services'], ['about.html', 'About Us', 'about'],
       ['contact.html', 'Contact', 'contact'], ['saved.html', 'Saved Properties', 'saved']
     ];
@@ -189,11 +197,11 @@
       '<div class="foot-brand"><a class="logo" href="index.html"><span class="logo-mark">' + LOGO + '</span><span class="logo-text"><b>SEE</b><small>Construction &amp; Real Estate</small></span></a>' +
       '<p>Real estate and construction in Abuja — homes, land, investment opportunities and building projects, presented with clarity and care.</p>' +
       '<a class="btn btn-gold btn-sm" href="contact.html">Make an enquiry ' + icon('arrow', 'arr') + '</a></div>' +
-      '<div><h5>Explore</h5><ul><li><a href="index.html">Home</a></li><li><a href="properties.html">Properties</a></li><li><a href="services.html">Our Services</a></li><li><a href="about.html">About Us</a></li><li><a href="saved.html">Saved Properties</a></li></ul></div>' +
-      '<div><h5>Services</h5><ul><li><a href="services.html#sales">Property Sales</a></li><li><a href="services.html#land">Land Opportunities</a></li><li><a href="services.html#residential">Residential Property</a></li><li><a href="services.html#construction">Construction</a></li><li><a href="services.html#consultancy">Consultancy</a></li></ul></div>' +
+      '<div><h5>Explore</h5><ul><li><a href="index.html">Home</a></li><li><a href="projects.html">Projects</a></li><li><a href="properties.html">Properties</a></li><li><a href="services.html">Our Services</a></li><li><a href="about.html">About Us</a></li><li><a href="saved.html">Saved Properties</a></li></ul></div>' +
+      '<div><h5>Services</h5><ul><li><a href="services.html#construction">Construction</a></li><li><a href="services.html#sales">Property Sales</a></li><li><a href="services.html#land">Land Opportunities</a></li><li><a href="services.html#residential">Residential Property</a></li><li><a href="services.html#consultancy">Consultancy</a></li></ul></div>' +
       '<div><h5>Get in touch</h5><ul><li><a data-wa>WhatsApp us</a></li><li><a href="contact.html">Send an enquiry</a></li><li><a href="properties.html?purpose=Rent">Properties to rent</a></li><li>Abuja, Nigeria</li></ul></div>' +
       '</div><div class="foot-bottom"><span><b>Independent Website Concept by Flowweb Ltd.</b> — Not the Official Website of SEE Construction & Real Estate.</span>' +
-      '<small>Property listings, prices and images shown are illustrative. © 2026 Flowweb Ltd.</small></div></div></footer>' +
+      '<small>All images, projects, listings and prices shown are for demonstration purposes only. \u00A9 2026 Flowweb Ltd.</small></div></div></footer>' +
 
       '<a class="fab" data-wa aria-label="Chat on WhatsApp">' + WA + '</a>' +
       '<div class="toast" id="toast" role="status" aria-live="polite"></div>';
@@ -260,6 +268,6 @@
 
   window.SEEApp = {
     S: S, $: $, $$: $$, icon: icon, card: card, byId: byId, Fav: Fav, wa: wa, money: money, priceHTML: priceHTML,
-    status: status, favBtn: favBtn, facts: facts, refresh: refresh, reveal: reveal, toast: toast, bindWA: bindWA, syncFavs: syncFavs, WA: WA
+    status: status, projCard: projCard, favBtn: favBtn, facts: facts, refresh: refresh, reveal: reveal, toast: toast, bindWA: bindWA, syncFavs: syncFavs, WA: WA
   };
 })();
