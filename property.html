@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Property — SEE Construction & Real Estate</title>
+<meta name="theme-color" content="#0a1b3d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body data-page="properties">
+<main id="main"><div id="view"></div></main>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button class="lb-close" id="lbClose" type="button" aria-label="Close photo viewer"><i data-icon="close"></i></button>
+  <button class="g-arrow prev" id="lbPrev" type="button" aria-label="Previous photo"><i data-icon="left"></i></button>
+  <img id="lbImg" alt="" onerror="seeImgErr(this)">
+  <button class="g-arrow next" id="lbNext" type="button" aria-label="Next photo"><i data-icon="right"></i></button>
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+(function(){
+  var A=SEEApp,S=A.S,$=A.$;
+  var id=new URLSearchParams(location.search).get('id');
+  var p=A.byId(id);
+  var view=$('#view');
+
+  if(!p){
+    document.title='Property not found — SEE Construction & Real Estate';
+    view.innerHTML='<section class="section"><div class="container"><div class="empty"><div class="ico">'+A.icon('search')+'</div><h3>We couldn’t find that property</h3><p>It may have been removed or the link may be incorrect. Browse the full catalogue to see what’s available.</p><a class="btn btn-navy" href="properties.html">Browse properties '+A.icon('arrow','arr')+'</a></div></div></section>';
+    A.refresh(document);return;
+  }
+
+  document.title=p.title+' — '+p.area+', Abuja | SEE Construction & Real Estate';
+  var pageUrl=location.href.split('#')[0];
+  var msg='Hello SEE Construction & Real Estate, I am interested in "'+p.title+'" ('+p.location+'). Please share more details.\n'+pageUrl;
+
+  var kf=[];
+  if(p.beds)kf.push(['bed',p.beds,'Bedrooms']);
+  if(p.baths)kf.push(['bath',p.baths,'Bathrooms']);
+  if(p.size)kf.push(['area',p.size.toLocaleString('en-NG'),'Size (sqm)']);
+  kf.push([p.type==='Land'?'land':'building',p.type,'Type']);
+  kf.push(['key',p.purpose==='Rent'?'For Rent':'For Sale','Purpose']);
+  kf.push(['pin',p.area,'District']);
+
+  var related=S.properties.filter(function(x){return x.id!==p.id&&(x.cat===p.cat||x.area===p.area)}).slice(0,3);
+  if(related.length<3)S.properties.forEach(function(x){if(x.id!==p.id&&related.indexOf(x)<0&&related.length<3)related.push(x)});
+
+  var catName={residential:'Residential',land:'Land',investment:'Investment'}[p.cat];
+
+  view.innerHTML=
+  '<section class="detail-top"><div class="container">'+
+    '<div class="crumbs"><a href="index.html">Home</a><span class="sep">/</span><a href="properties.html">Properties</a><span class="sep">/</span><span>'+p.title+'</span></div>'+
+    '<div class="detail-title"><div>'+
+      '<div class="badges inline"><span class="badge badge-gold">'+A.status(p)+'</span><span class="badge badge-glass" style="background:var(--navy-900)">'+catName+'</span></div>'+
+      '<h1>'+p.title+'</h1><div class="loc" style="font-size:16px">'+A.icon('pin')+p.location+'</div>'+
+    '</div><div class="detail-price">'+A.priceHTML(p)+'</div></div>'+
+  '</div></section>'+
+
+  '<section><div class="container"><div class="gallery">'+
+    '<div class="g-main" id="gMain"><img id="gImg" alt="'+p.title+'" onerror="seeImgErr(this)">'+
+      '<button class="g-arrow prev" id="gPrev" type="button" aria-label="Previous photo">'+A.icon('left')+'</button>'+
+      '<button class="g-arrow next" id="gNext" type="button" aria-label="Next photo">'+A.icon('right')+'</button>'+
+      '<span class="g-count" id="gCount"></span></div>'+
+    '<div class="g-thumbs" id="gThumbs"></div>'+
+  '</div></div></section>'+
+
+  '<section><div class="container detail-grid">'+
+    '<div class="detail-main">'+
+      '<div class="block reveal"><div class="key-facts">'+kf.map(function(k){return '<div class="kf">'+A.icon(k[0])+'<b>'+k[1]+'</b><span>'+k[2]+'</span></div>'}).join('')+'</div></div>'+
+      '<div class="block reveal"><h2>About this property</h2>'+p.desc.map(function(d){return '<p>'+d+'</p>'}).join('')+'</div>'+
+      '<div class="block reveal"><h2>Features</h2><ul class="feature-list">'+p.features.map(function(f){return '<li>'+A.icon('check')+f+'</li>'}).join('')+'</ul></div>'+
+      '<div class="block reveal"><h2>Location</h2><p>'+p.location+'. Exact address, directions and inspection arrangements are shared when you enquire.</p></div>'+
+    '</div>'+
+    '<aside class="enquiry-card reveal">'+
+      '<span class="eyebrow light" style="font-size:11px">Interested?</span>'+
+      '<h3>Enquire about this property</h3>'+A.priceHTML(p)+
+      '<p>Speak with our team to ask questions, request more details or arrange a viewing.</p>'+
+      '<a class="btn btn-wa btn-block" data-wa="'+msg.replace(/"/g,'&quot;')+'"><svg class="i" viewBox="0 0 24 24" style="fill:currentColor;stroke:none">'+A.WA.replace(/<\/?svg[^>]*>/g,'')+'</svg>WhatsApp us</a>'+
+      '<a class="btn btn-gold btn-block" href="contact.html?property='+p.id+'">Send an enquiry</a>'+
+      '<button class="save-row" type="button" data-id="'+p.id+'" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.2-9.4C1.7 7.8 3.6 4.8 6.8 4.8c2 0 3.8 1.2 5.2 3.2 1.4-2 3.2-3.2 5.2-3.2 3.2 0 5.1 3 4 6.3-1.7 4.8-9.2 9.4-9.2 9.4Z"/></svg><span class="lbl">Save property</span></button>'+
+    '</aside>'+
+  '</div></section>'+
+
+  '<section class="section alt" style="margin-top:70px"><div class="container">'+
+    '<div class="section-head reveal"><div><span class="eyebrow">You may also like</span><h2 style="margin-top:16px">Related properties</h2></div>'+
+    '<a class="btn btn-outline" href="properties.html">All properties '+A.icon('arrow','arr')+'</a></div>'+
+    '<div class="grid-3">'+related.map(function(r,i){return A.card(r,i)}).join('')+'</div>'+
+  '</div></section>'+
+
+  '<section class="section"><div class="container"><div class="cta reveal" style="--cta-img:url(\''+S.img(p.imgs[0],1600)+'\')">'+
+    '<span class="eyebrow light">Take the next step</span><h2>Book a viewing or ask a question</h2>'+
+    '<p>Our team will get back to you with details on '+p.title+' and can suggest similar options.</p>'+
+    '<div class="row"><a class="btn btn-gold" href="contact.html?property='+p.id+'">Send an enquiry '+A.icon('arrow','arr')+'</a>'+
+    '<a class="btn btn-wa" data-wa="'+msg.replace(/"/g,'&quot;')+'">Chat on WhatsApp</a></div></div></div></section>';
+
+  /* gallery */
+  var imgs=p.imgs,cur=0,gImg=$('#gImg'),thumbs=$('#gThumbs');
+  thumbs.innerHTML=imgs.map(function(src,i){
+    return '<button type="button" class="g-thumb" data-i="'+i+'" aria-label="Show photo '+(i+1)+'"><img src="'+S.img(src,400)+'" alt="" loading="lazy" onerror="seeImgErr(this)"></button>';
+  }).join('');
+  function show(i){
+    cur=(i+imgs.length)%imgs.length;
+    gImg.style.opacity=.2;
+    setTimeout(function(){gImg.src=S.img(imgs[cur],1600);gImg.style.opacity=1},150);
+    $('#gCount').textContent=(cur+1)+' / '+imgs.length;
+    A.$$('.g-thumb').forEach(function(t,k){t.classList.toggle('on',k===cur)});
+  }
+  gImg.src=S.img(imgs[0],1600);
+  $('#gCount').textContent='1 / '+imgs.length;
+  A.$$('.g-thumb')[0].classList.add('on');
+  $('#gPrev').onclick=function(e){e.stopPropagation();show(cur-1)};
+  $('#gNext').onclick=function(e){e.stopPropagation();show(cur+1)};
+  thumbs.addEventListener('click',function(e){var b=e.target.closest('.g-thumb');if(b)show(+b.getAttribute('data-i'))});
+
+  /* swipe */
+  var sx=null;var gm=$('#gMain');
+  gm.addEventListener('touchstart',function(e){sx=e.touches[0].clientX},{passive:true});
+  gm.addEventListener('touchend',function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>45)show(cur+(dx<0?1:-1));sx=null});
+
+  /* lightbox */
+  var lb=$('#lightbox'),lbImg=$('#lbImg');
+  function lbShow(i){cur=(i+imgs.length)%imgs.length;lbImg.src=S.img(imgs[cur],1800);lbImg.alt=p.title+' photo '+(cur+1);show(cur)}
+  function lbOpen(){lbShow(cur);lb.classList.add('open');document.documentElement.classList.add('no-scroll')}
+  function lbClose(){lb.classList.remove('open');document.documentElement.classList.remove('no-scroll')}
+  gm.addEventListener('click',lbOpen);
+  $('#lbClose').onclick=lbClose;
+  $('#lbPrev').onclick=function(){lbShow(cur-1)};
+  $('#lbNext').onclick=function(){lbShow(cur+1)};
+  lb.addEventListener('click',function(e){if(e.target===lb)lbClose()});
+  document.addEventListener('keydown',function(e){
+    if(lb.classList.contains('open')){
+      if(e.key==='Escape')lbClose();
+      if(e.key==='ArrowLeft')lbShow(cur-1);
+      if(e.key==='ArrowRight')lbShow(cur+1);
+    }
+  });
+
+  /* replace static icons inside lightbox (rendered before layout ran their replace) */
+  A.refresh(document);
+})();
+</script>
+</body>
+</html>

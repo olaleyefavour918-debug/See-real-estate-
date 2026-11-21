@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>SEE Construction & Real Estate — Property Opportunities in Abuja</title>
+<meta name="description" content="Discover residential homes, land and investment opportunities across Abuja with SEE Construction & Real Estate.">
+<meta name="theme-color" content="#0a1b3d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body data-page="home">
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-slides" id="heroSlides" aria-hidden="true"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="container hero-inner hero-anim">
+      <span class="eyebrow light">Abuja &middot; Real Estate &middot; Construction</span>
+      <h1>Find the property opportunity that <em>fits your future</em></h1>
+      <p class="lead">SEE Construction &amp; Real Estate connects buyers, tenants and investors with homes, land and development opportunities across Abuja &mdash; and builds houses and buildings for those who would rather create their own.</p>
+      <div class="hero-actions">
+        <a class="btn btn-gold" href="properties.html">Explore Properties <i data-icon="arrow" data-cls="arr"></i></a>
+        <a class="btn btn-ghost" href="services.html">Our Services</a>
+      </div>
+    </div>
+
+    <div class="container search-wrap">
+      <form class="search-panel" id="heroSearch" action="properties.html" method="get" role="search">
+        <div class="seg" role="radiogroup" aria-label="I am looking to">
+          <label><input type="radio" name="mode" value="Sale" checked><span>Buy</span></label>
+          <label><input type="radio" name="mode" value="Rent"><span>Rent</span></label>
+          <label><input type="radio" name="mode" value="Invest"><span>Invest</span></label>
+        </div>
+        <div class="search-grid">
+          <div class="field field-icon">
+            <label for="hq">Search</label>
+            <i data-icon="search"></i>
+            <input id="hq" name="q" type="search" placeholder="Area, estate or property name" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="ht">Property type</label>
+            <select id="ht" name="type"><option value="">All types</option></select>
+          </div>
+          <div class="field">
+            <label for="hl">Location</label>
+            <select id="hl" name="loc"><option value="">All of Abuja</option></select>
+          </div>
+          <button class="btn btn-gold" type="submit">Search <i data-icon="arrow" data-cls="arr"></i></button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <span class="eyebrow">Browse by category</span>
+          <h2 style="margin-top:16px">Three ways into <br>Abuja property</h2>
+        </div>
+        <p class="sub">Whether you&rsquo;re settling in, building from the ground up or putting capital to work, start with the category that matches your goal.</p>
+      </div>
+      <div class="cat-grid">
+        <a class="cat-card reveal d1" href="properties.html?cat=residential">
+          <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=900&q=75" alt="Modern residential home with pool" loading="lazy" onerror="seeImgErr(this)">
+          <div class="cat-body">
+            <div class="ico"><i data-icon="home"></i></div>
+            <h3>Residential</h3>
+            <p>Villas, duplexes, terraces and apartments to buy or rent.</p>
+            <span class="cat-link">Browse homes <i data-icon="arrow"></i></span>
+          </div>
+        </a>
+        <a class="cat-card reveal d2" href="properties.html?cat=land">
+          <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&q=75" alt="Open land ready for development" loading="lazy" onerror="seeImgErr(this)">
+          <div class="cat-body">
+            <div class="ico"><i data-icon="land"></i></div>
+            <h3>Land</h3>
+            <p>Residential and development plots in growing districts.</p>
+            <span class="cat-link">View land <i data-icon="arrow"></i></span>
+          </div>
+        </a>
+        <a class="cat-card reveal d3" href="properties.html?cat=investment">
+          <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=75" alt="Commercial tower in a city skyline" loading="lazy" onerror="seeImgErr(this)">
+          <div class="cat-body">
+            <div class="ico"><i data-icon="chart"></i></div>
+            <h3>Investment</h3>
+            <p>Commercial, mixed-use and multi-unit opportunities.</p>
+            <span class="cat-link">See opportunities <i data-icon="arrow"></i></span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED -->
+  <section class="section alt">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <span class="eyebrow">Featured properties</span>
+          <h2 style="margin-top:16px">Handpicked for <br>you to explore</h2>
+        </div>
+        <a class="btn btn-outline" href="properties.html">View all properties <i data-icon="arrow" data-cls="arr"></i></a>
+      </div>
+      <div class="grid-3" id="featured"></div>
+    </div>
+  </section>
+
+  <!-- VALUE -->
+  <section class="section dark">
+    <div class="container split">
+      <div class="split-media reveal">
+        <div class="frame">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=75" alt="Contemporary home exterior at dusk" loading="lazy" onerror="seeImgErr(this)">
+        </div>
+        <div class="float-tag"><b>Homes &middot; Land &middot; Investment</b><span>One team across Abuja&rsquo;s key districts</span></div>
+      </div>
+      <div class="reveal d1">
+        <span class="eyebrow light">Why work with us</span>
+        <h2 class="h2" style="margin:18px 0 18px">A clearer, calmer way to find property in Abuja</h2>
+        <p class="lead" style="color:#b9c6e4">Property decisions are big ones. We focus on presenting options clearly, answering questions openly and keeping you informed at every step.</p>
+        <div class="value-grid">
+          <div class="value"><div class="ico"><i data-icon="compass"></i></div><div><h4>Curated options</h4><p>A focused selection across homes, land and investment property.</p></div></div>
+          <div class="value"><div class="ico"><i data-icon="eye"></i></div><div><h4>Clear information</h4><p>Straightforward details so you can compare with confidence.</p></div></div>
+          <div class="value"><div class="ico"><i data-icon="users"></i></div><div><h4>Personal support</h4><p>Real people to talk to, from first question to final decision.</p></div></div>
+          <div class="value"><div class="ico"><i data-icon="key"></i></div><div><h4>Local focus</h4><p>Attention on Abuja&rsquo;s districts, neighbourhoods and growth areas.</p></div></div>
+        </div>
+        <div style="margin-top:38px;display:flex;gap:14px;flex-wrap:wrap">
+          <a class="btn btn-gold" href="services.html">Discover our services <i data-icon="arrow" data-cls="arr"></i></a>
+          <a class="btn btn-ghost" href="about.html">About us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONSTRUCTION -->
+  <section class="section alt">
+    <div class="container split rev">
+      <div class="split-media reveal">
+        <div class="frame"><img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1000&q=75" alt="Building under construction" loading="lazy" onerror="seeImgErr(this)"></div>
+      </div>
+      <div class="reveal d1">
+        <span class="eyebrow">Construction</span>
+        <h2 class="h2" style="margin:18px 0 18px">Prefer to build? <br>We construct too</h2>
+        <p class="lead" style="color:#41506f">Beyond buying and selling, SEE Construction &amp; Real Estate builds houses and buildings in Abuja. Whether you already own a plot or are still looking for one, start the conversation with us.</p>
+        <ul class="svc-list" style="margin-top:24px">
+          <li><i data-icon="check"></i>Houses and buildings for private and commercial use</li>
+          <li><i data-icon="check"></i>Land and construction discussed together</li>
+          <li><i data-icon="check"></i>Plans, scope and approach agreed with you directly</li>
+        </ul>
+        <div style="display:flex;gap:14px;flex-wrap:wrap">
+          <a class="btn btn-navy" href="services.html#construction">Explore construction <i data-icon="arrow" data-cls="arr"></i></a>
+          <a class="btn btn-outline" href="contact.html">Discuss a project</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISTRICTS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <span class="eyebrow">Locations</span>
+          <h2 style="margin-top:16px">Explore Abuja by district</h2>
+        </div>
+        <p class="sub">From established addresses to fast-growing corridors &mdash; jump straight to the area you have in mind.</p>
+      </div>
+      <div class="chips reveal d1" id="districts"></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="cta reveal" style="--cta-img:url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1600&q=70')">
+        <span class="eyebrow light">Let&rsquo;s talk</span>
+        <h2>Ready to find your next address?</h2>
+        <p>Tell us what you&rsquo;re looking for and we&rsquo;ll respond with options that fit. Message us on WhatsApp or send an enquiry &mdash; whichever is easier for you.</p>
+        <div class="row">
+          <a class="btn btn-gold" href="contact.html">Send an enquiry <i data-icon="arrow" data-cls="arr"></i></a>
+          <a class="btn btn-wa" data-wa>Chat on WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+(function(){
+  var A=SEEApp,S=A.S;
+
+  // hero slideshow (only slides that load are used)
+  var wrap=document.getElementById('heroSlides'),slides=[],idx=0;
+  S.hero.forEach(function(id){
+    var url=S.img(id,1800),im=new Image();
+    im.onload=function(){
+      var d=document.createElement('div');d.className='slide';d.style.backgroundImage='url("'+url+'")';
+      wrap.appendChild(d);slides.push(d);
+      if(slides.length===1){requestAnimationFrame(function(){d.classList.add('active')});}
+    };
+    im.src=url;
+  });
+  setInterval(function(){
+    if(slides.length<2)return;
+    slides[idx].classList.remove('active');
+    idx=(idx+1)%slides.length;
+    slides[idx].classList.add('active');
+  },6500);
+
+  // search selects
+  var ht=document.getElementById('ht'),hl=document.getElementById('hl');
+  S.types.forEach(function(t){ht.insertAdjacentHTML('beforeend','<option>'+t+'</option>')});
+  S.districts.forEach(function(d){hl.insertAdjacentHTML('beforeend','<option>'+d+'</option>')});
+
+  document.getElementById('heroSearch').addEventListener('submit',function(e){
+    e.preventDefault();
+    var f=e.target,mode=f.mode.value,p=new URLSearchParams();
+    if(f.q.value.trim())p.set('q',f.q.value.trim());
+    if(f.type.value)p.set('type',f.type.value);
+    if(f.loc.value)p.set('loc',f.loc.value);
+    if(mode==='Invest')p.set('cat','investment');else p.set('purpose',mode);
+    location.href='properties.html'+(p.toString()?'?'+p.toString():'');
+  });
+
+  // featured
+  var feat=S.properties.filter(function(p){return p.featured}).slice(0,6);
+  document.getElementById('featured').innerHTML=feat.map(function(p,i){return A.card(p,i)}).join('');
+
+  // districts
+  document.getElementById('districts').innerHTML=S.districts.map(function(d){
+    return '<a class="chip" href="properties.html?loc='+encodeURIComponent(d)+'">'+A.icon('pin')+d+'</a>';
+  }).join('');
+
+  A.refresh(document);
+})();
+</script>
+</body>
+</html>

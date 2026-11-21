@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Saved Properties — SEE Construction & Real Estate</title>
+<meta name="theme-color" content="#0a1b3d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body data-page="saved">
+<main id="main">
+
+  <section class="page-hero" style="--hero:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1800&q=70')">
+    <div class="container">
+      <div class="crumbs"><a href="index.html">Home</a><span class="sep">/</span><span>Saved Properties</span></div>
+      <span class="eyebrow light">Your shortlist</span>
+      <h1>Saved Properties</h1>
+      <p>The homes, plots and opportunities you&rsquo;ve saved, kept in one place on this device.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="results-bar" style="margin-top:0" id="bar">
+        <h2 id="count">Your shortlist</h2>
+        <div class="saved-bar">
+          <a class="btn btn-wa btn-sm" id="shareWA" target="_blank" rel="noopener">Send shortlist on WhatsApp</a>
+          <button class="btn btn-outline btn-sm" type="button" id="clearAll">Clear all</button>
+        </div>
+      </div>
+      <div class="grid-3" id="list"></div>
+      <div class="empty" id="empty" hidden>
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.2-9.4C1.7 7.8 3.6 4.8 6.8 4.8c2 0 3.8 1.2 5.2 3.2 1.4-2 3.2-3.2 5.2-3.2 3.2 0 5.1 3 4 6.3-1.7 4.8-9.2 9.4-9.2 9.4Z"/></svg></div>
+        <h3>No saved properties yet</h3>
+        <p>Tap the heart on any property to add it to your shortlist. It will appear here so you can compare and come back to it later.</p>
+        <a class="btn btn-navy" href="properties.html">Browse properties <i data-icon="arrow" data-cls="arr"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container">
+      <div class="section-head reveal">
+        <div><span class="eyebrow">Keep exploring</span><h2 style="margin-top:16px">More to discover</h2></div>
+        <a class="btn btn-outline" href="properties.html">All properties <i data-icon="arrow" data-cls="arr"></i></a>
+      </div>
+      <div class="grid-3" id="more"></div>
+    </div>
+  </section>
+</main>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+(function(){
+  var A=SEEApp,S=A.S,$=A.$;
+  function render(){
+    var ids=A.Fav.all();
+    var items=ids.map(A.byId).filter(Boolean);
+    $('#count').textContent=items.length?items.length+(items.length===1?' saved property':' saved properties'):'Your shortlist';
+    $('#list').innerHTML=items.map(function(p,i){return A.card(p,i)}).join('');
+    $('#empty').hidden=items.length>0;
+    $('.saved-bar').style.display=items.length?'flex':'none';
+    if(items.length){
+      var msg='Hello SEE Construction & Real Estate, here is my shortlist:\n'+items.map(function(p,i){return (i+1)+'. '+p.title+' — '+p.location}).join('\n')+'\n\nPlease share more details.';
+      $('#shareWA').href=A.wa(msg);
+    }
+    var more=S.properties.filter(function(p){return ids.indexOf(p.id)<0}).slice(0,3);
+    $('#more').innerHTML=more.map(function(p,i){return A.card(p,i)}).join('');
+    A.refresh(document);
+  }
+  document.addEventListener('seefav',function(e){
+    // when the change happened in the lower "more" grid, keep the page steady; just re-render
+    render();
+  });
+  $('#clearAll').addEventListener('click',function(){
+    if(A.Fav.all().length&&confirm('Remove all saved properties from your shortlist?'))A.Fav.clear();
+  });
+  render();
+})();
+</script>
+</body>
+</html>

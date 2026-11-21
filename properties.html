@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Properties in Abuja — SEE Construction & Real Estate</title>
+<meta name="description" content="Browse homes, land and investment properties across Abuja. Search and filter by type, location and purpose.">
+<meta name="theme-color" content="#0a1b3d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body data-page="properties">
+<main id="main">
+
+  <section class="page-hero" style="--hero:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1800&q=70')">
+    <div class="container">
+      <div class="crumbs"><a href="index.html">Home</a><span class="sep">/</span><span>Properties</span></div>
+      <span class="eyebrow light">Property catalogue</span>
+      <h1>Properties across Abuja</h1>
+      <p>Search homes, land and investment opportunities, then save your favourites to a shortlist.</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <form class="filters reveal" id="filters" onsubmit="return false" role="search" aria-label="Filter properties">
+      <div class="filter-top">
+        <div class="type-tabs" id="catTabs" role="tablist" aria-label="Category">
+          <button type="button" class="tab on" data-cat="">All</button>
+          <button type="button" class="tab" data-cat="residential">Residential</button>
+          <button type="button" class="tab" data-cat="land">Land</button>
+          <button type="button" class="tab" data-cat="investment">Investment</button>
+        </div>
+        <button type="button" class="link-btn" id="reset">Reset filters</button>
+      </div>
+      <div class="filter-grid">
+        <div class="field field-icon">
+          <label for="fq">Search</label>
+          <i data-icon="search"></i>
+          <input id="fq" type="search" placeholder="Name, area or keyword" autocomplete="off">
+        </div>
+        <div class="field"><label for="ftype">Property type</label><select id="ftype"><option value="">All types</option></select></div>
+        <div class="field"><label for="floc">Location</label><select id="floc"><option value="">All locations</option></select></div>
+        <div class="field"><label for="fpur">Purpose</label>
+          <select id="fpur"><option value="">Sale or rent</option><option value="Sale">For sale</option><option value="Rent">For rent</option></select></div>
+        <div class="field"><label for="fsort">Sort by</label>
+          <select id="fsort"><option value="featured">Featured first</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option></select></div>
+      </div>
+    </form>
+
+    <div class="results-bar">
+      <h2 id="count" aria-live="polite">Properties</h2>
+      <a class="link-btn" href="saved.html">View saved properties</a>
+    </div>
+
+    <div class="grid-3" id="results"></div>
+    <div class="empty" id="empty" hidden>
+      <div class="ico"><i data-icon="search"></i></div>
+      <h3>No matching properties</h3>
+      <p>Try widening your search or clearing a filter. We&rsquo;re also happy to look for something specific on your behalf.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-navy" type="button" id="reset2">Reset filters</button>
+        <a class="btn btn-wa" data-wa="Hello SEE Construction & Real Estate, I am looking for a property that I could not find on the website.">Ask on WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta reveal" style="--cta-img:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=70')">
+        <span class="eyebrow light">Can&rsquo;t see what you need?</span>
+        <h2>Tell us what you&rsquo;re looking for</h2>
+        <p>Share your preferred area, budget and property type and we&rsquo;ll come back to you with suitable options.</p>
+        <div class="row">
+          <a class="btn btn-gold" href="contact.html">Send an enquiry <i data-icon="arrow" data-cls="arr"></i></a>
+          <a class="btn btn-wa" data-wa>Chat on WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+(function(){
+  var A=SEEApp,S=A.S,$=A.$;
+  var el={q:$('#fq'),type:$('#ftype'),loc:$('#floc'),pur:$('#fpur'),sort:$('#fsort'),res:$('#results'),empty:$('#empty'),count:$('#count')};
+  var cat='';
+
+  S.types.forEach(function(t){el.type.insertAdjacentHTML('beforeend','<option>'+t+'</option>')});
+  S.districts.forEach(function(d){el.loc.insertAdjacentHTML('beforeend','<option>'+d+'</option>')});
+
+  // read URL
+  var u=new URLSearchParams(location.search);
+  el.q.value=u.get('q')||'';
+  el.type.value=u.get('type')||'';
+  el.loc.value=u.get('loc')||'';
+  el.pur.value=u.get('purpose')||'';
+  el.sort.value=u.get('sort')||'featured';
+  cat=u.get('cat')||'';
+  if(el.type.value!==(u.get('type')||''))el.type.value='';
+  if(el.loc.value!==(u.get('loc')||''))el.loc.value='';
+
+  function tabs(){A.$$('#catTabs .tab').forEach(function(t){
+    var on=t.getAttribute('data-cat')===cat;t.classList.toggle('on',on);t.setAttribute('aria-selected',on)})}
+
+  function filtered(){
+    var q=el.q.value.trim().toLowerCase();
+    var list=S.properties.filter(function(p){
+      if(cat&&p.cat!==cat)return false;
+      if(el.type.value&&p.type!==el.type.value)return false;
+      if(el.loc.value&&p.area!==el.loc.value)return false;
+      if(el.pur.value&&p.purpose!==el.pur.value)return false;
+      if(q){
+        var hay=(p.title+' '+p.location+' '+p.area+' '+p.type+' '+p.cat+' '+p.desc.join(' ')).toLowerCase();
+        return q.split(/\s+/).every(function(w){return hay.indexOf(w)>-1});
+      }
+      return true;
+    });
+    var s=el.sort.value;
+    if(s==='low'||s==='high'){
+      list.sort(function(a,b){
+        var x=a.price==null?Infinity*(s==='low'?1:-1):a.price;
+        var y=b.price==null?Infinity*(s==='low'?1:-1):b.price;
+        if(a.price==null&&b.price==null)return 0;
+        if(a.price==null)return 1;if(b.price==null)return -1;
+        return s==='low'?x-y:y-x;
+      });
+    }else{
+      list.sort(function(a,b){return (b.featured?1:0)-(a.featured?1:0)});
+    }
+    return list;
+  }
+
+  function sync(){
+    var p=new URLSearchParams();
+    if(el.q.value.trim())p.set('q',el.q.value.trim());
+    if(el.type.value)p.set('type',el.type.value);
+    if(el.loc.value)p.set('loc',el.loc.value);
+    if(el.pur.value)p.set('purpose',el.pur.value);
+    if(cat)p.set('cat',cat);
+    if(el.sort.value!=='featured')p.set('sort',el.sort.value);
+    var s=p.toString();
+    try{history.replaceState(null,'',location.pathname+(s?'?'+s:''))}catch(e){}
+  }
+
+  function render(){
+    var list=filtered();
+    el.count.textContent=list.length+(list.length===1?' property':' properties');
+    el.res.innerHTML=list.map(function(p,i){return A.card(p,i)}).join('');
+    el.empty.hidden=list.length>0;
+    tabs();sync();
+    A.refresh(document);
+  }
+
+  var t;
+  el.q.addEventListener('input',function(){clearTimeout(t);t=setTimeout(render,160)});
+  [el.type,el.loc,el.pur,el.sort].forEach(function(s){s.addEventListener('change',render)});
+  A.$$('#catTabs .tab').forEach(function(b){b.addEventListener('click',function(){cat=b.getAttribute('data-cat');render()})});
+  function reset(){el.q.value='';el.type.value='';el.loc.value='';el.pur.value='';el.sort.value='featured';cat='';render()}
+  $('#reset').addEventListener('click',reset);$('#reset2').addEventListener('click',reset);
+
+  render();
+})();
+</script>
+</body>
+</html>

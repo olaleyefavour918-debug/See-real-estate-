@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Contact — SEE Construction & Real Estate</title>
+<meta name="description" content="Get in touch with SEE Construction & Real Estate by WhatsApp or send an enquiry about homes, land and investment property in Abuja.">
+<meta name="theme-color" content="#0a1b3d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body data-page="contact">
+<main id="main">
+
+  <section class="page-hero" style="--hero:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=70')">
+    <div class="container">
+      <div class="crumbs"><a href="index.html">Home</a><span class="sep">/</span><span>Contact</span></div>
+      <span class="eyebrow light">Get in touch</span>
+      <h1>Let&rsquo;s start a conversation</h1>
+      <p>Tell us what you&rsquo;re looking for and we&rsquo;ll respond with options and answers.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container contact-grid">
+
+      <div class="form-card reveal" id="form">
+        <h2>Send an enquiry</h2>
+        <p>Fill in the details below and we&rsquo;ll prepare your message for WhatsApp so our team can respond quickly.</p>
+        <form id="enquiryForm" novalidate>
+          <div class="form-grid">
+            <div class="field"><label for="name">Full name</label><input id="name" name="name" type="text" autocomplete="name" required placeholder="Your name"></div>
+            <div class="field"><label for="phone">Phone / WhatsApp</label><input id="phone" name="phone" type="tel" autocomplete="tel" required placeholder="e.g. 0801 234 5678"></div>
+            <div class="field"><label for="email">Email (optional)</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com"></div>
+            <div class="field"><label for="interest">I&rsquo;m interested in</label>
+              <select id="interest" name="interest">
+                <option>Buying a property</option><option>Renting a property</option><option>Land</option>
+                <option>Investment opportunities</option><option>Home construction</option><option>Consultancy</option><option>Something else</option>
+              </select></div>
+            <div class="field full"><label for="property">Property of interest (optional)</label>
+              <select id="property" name="property"><option value="">No specific property</option></select></div>
+            <div class="field full"><label for="message">Message</label><textarea id="message" name="message" placeholder="Tell us about your preferred location, budget and timeline"></textarea></div>
+            <div class="full"><button class="btn btn-gold btn-block" type="submit">Send enquiry <i data-icon="arrow" data-cls="arr"></i></button></div>
+          </div>
+          <p id="formError" role="alert" style="color:#b3261e;font-size:14px;margin-top:14px;display:none"></p>
+        </form>
+        <div class="form-success" id="success" role="status">
+          <b>Thank you &mdash; your enquiry is ready.</b><br>
+          Tap below to send it to our team on WhatsApp.
+          <br><a class="btn btn-wa" id="waSend" target="_blank" rel="noopener">Continue on WhatsApp</a>
+        </div>
+      </div>
+
+      <div class="info-stack">
+        <a class="info-card reveal d1" data-wa>
+          <div class="ico wa"><svg class="i" viewBox="0 0 24 24" style="fill:currentColor;stroke:none" id="waGlyph"></svg></div>
+          <div><h4>WhatsApp</h4><p>The quickest way to reach us. Tap to start a chat.</p></div>
+        </a>
+        <a class="info-card reveal d2" href="#form">
+          <div class="ico"><i data-icon="mail"></i></div>
+          <div><h4>Email &amp; phone</h4><p>Send an enquiry and we&rsquo;ll share our direct contact details when we reply.</p></div>
+        </a>
+        <div class="info-card reveal d3">
+          <div class="ico"><i data-icon="calendar"></i></div>
+          <div><h4>Viewings</h4><p>Inspections are arranged by appointment. Tell us your preferred days and times.</p></div>
+        </div>
+        <div class="map-card reveal d4">
+          <div><div class="pin"><i></i></div><h4>Abuja, Nigeria</h4><p>Office location and meeting points are confirmed when you enquire.</p></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="cta reveal" style="--cta-img:url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1600&q=70')">
+        <span class="eyebrow light">Prefer to chat?</span>
+        <h2>We&rsquo;re a message away</h2>
+        <p>Send us a note on WhatsApp and tell us what you&rsquo;re looking for in Abuja.</p>
+        <div class="row"><a class="btn btn-wa" data-wa>Chat on WhatsApp</a><a class="btn btn-ghost" href="properties.html">Browse properties</a></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+(function(){
+  var A=SEEApp,S=A.S,$=A.$;
+  $('#waGlyph').innerHTML=A.WA.replace(/<\/?svg[^>]*>/g,'');
+
+  var sel=$('#property');
+  S.properties.forEach(function(p){sel.insertAdjacentHTML('beforeend','<option value="'+p.id+'">'+p.title+' — '+p.area+'</option>')});
+  var pre=new URLSearchParams(location.search).get('property');
+  if(pre&&A.byId(pre)){sel.value=pre;$('#interest').value=A.byId(pre).purpose==='Rent'?'Renting a property':'Buying a property'}
+
+  $('#enquiryForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var f=e.target,err=$('#formError');
+    var name=f.name.value.trim(),phone=f.phone.value.trim(),email=f.email.value.trim();
+    var problems=[];
+    if(name.length<2)problems.push('your name');
+    if(phone.replace(/\D/g,'').length<7)problems.push('a valid phone number');
+    if(email&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))problems.push('a valid email address');
+    if(problems.length){err.style.display='block';err.textContent='Please enter '+problems.join(', ')+'.';return}
+    err.style.display='none';
+
+    var prop=f.property.value?A.byId(f.property.value):null;
+    var lines=['Hello SEE Construction & Real Estate,','','Name: '+name,'Phone: '+phone];
+    if(email)lines.push('Email: '+email);
+    lines.push('Interested in: '+f.interest.value);
+    if(prop)lines.push('Property: '+prop.title+' ('+prop.location+')');
+    if(f.message.value.trim())lines.push('','Message: '+f.message.value.trim());
+    $('#waSend').href=A.wa(lines.join('\n'));
+    f.style.display='none';
+    var s=$('#success');s.classList.add('show');
+    s.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+  A.refresh(document);
+})();
+</script>
+</body>
+</html>
